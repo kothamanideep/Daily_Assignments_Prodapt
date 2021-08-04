@@ -1,4 +1,6 @@
-from datetime import datetime     
+from datetime import datetime 
+import csv    
+header=['name','description','price','manufacturer','mfgdate','expdate']
 productlist=[]
 class ProductDetails:
     
@@ -32,8 +34,13 @@ while(True):
     
     if choice==4:
         today_date=str(input("enter today date(yyyy-mm-dd):"))
-        if today_date==expdate:
-            print(productlist)
+        print(list(filter(lambda i:i["expdate"]==str(today_date),productlist)))
 
     if choice==5:
         break
+
+    if choice==6:
+        with open('pro.csv','w+',encoding='UTF8',newline='') as p:
+            writer=csv.DictWriter(p,fieldnames=header)  
+            writer.writeheader()
+            writer.writerows(productlist)
